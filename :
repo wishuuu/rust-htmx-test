@@ -1,8 +1,0 @@
-pub async fn ensure_created(db_name: String) -> String {
-    let resp_result = reqwest::get("https://onet.pl").await;
-    let resp = match resp_result {
-        Ok(r) => r.text().await.unwrap_or("Parse error".to_string()),
-        _ => "Network error".to_string(),
-    };
-    return resp;
-}
