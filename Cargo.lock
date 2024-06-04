@@ -1768,6 +1768,7 @@ dependencies = [
 name = "rust-htmx-test"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "askama",
  "askama_axum",
  "axum 0.7.5",

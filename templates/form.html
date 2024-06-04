@@ -1,0 +1,11 @@
+<form
+        hx-target="#list"
+        hx-post="/app/{{ name }}"
+        hx-ext="json-enc"
+        hx-on::after-request="this.reset()"
+        >
+    <input type="text" name="firstname" placeholder="Name">
+    <input type="text" name="lastname" placeholder="Lastname">
+    <input type="text" name="email" placeholder="Email">
+    <input type="submit">
+</form>
