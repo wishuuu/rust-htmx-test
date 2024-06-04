@@ -7,13 +7,9 @@ use dotenv;
 
 use crate::users::User;
 use askama_axum::IntoResponse;
-use axum::{
-    extract,
-    extract::Path,
-    routing::{get, post},
-    Router,
-};
+use axum::{extract, extract::Path, routing::{get, post}, Router, serve};
 use serde::Deserialize;
+use tower_http::services::{ServeDir, ServeFile};
 use templates::IndexTemplate;
 use turso_api::ensure_created;
 
@@ -22,11 +18,13 @@ async fn main() {
     let app = Router::new()
         .route("/", get(root))
         .route("/app/:db", get(get_handler))
-        .route("/app/:db", post(post_handler));
+        .route("/app/:db", post(post_handler))
+        .route_service("/styles",  ServeFile::new("dist/output.css"));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:42069")
         .await
         .unwrap();
+
     axum::serve(listener, app).await.unwrap()
 }
 
